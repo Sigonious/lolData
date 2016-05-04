@@ -30,19 +30,20 @@
             android:layout_height="fill_parent"
             android:layout_margin="10dp">
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="KDA: "
-                android:id="@+id/textView1" />
+                android:text="KDA"
+                android:id="@+id/kdaButton"
+                android:layout_column="0" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Insert KDA here"
-                android:id="@+id/KDA"/>
+                android:id="@+id/KDA"
+                android:layout_column="1" />
         </TableRow>
 
         <TableRow
@@ -50,19 +51,21 @@
             android:layout_height="fill_parent"
             android:layout_margin="10dp">
 
-            <TextView
+            <Button
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Kills: "
-                android:id="@+id/textView2" />
+                android:text="Kills"
+                android:id="@+id/killButton"
+                android:layout_column="0" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Insert kills here"
-                android:id="@+id/Kills"/>
+                android:id="@+id/Kills"
+                android:layout_column="1" />
         </TableRow>
 
         <TableRow
@@ -70,19 +73,21 @@
             android:layout_height="fill_parent"
             android:layout_margin="10dp">
 
-            <TextView
+            <Button
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Deaths: "
-                android:id="@+id/textView3" />
+                android:text="Deaths"
+                android:id="@+id/deathButton"
+                android:layout_column="0" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="insert deaths here"
-                android:id="@+id/Deaths" />
+                android:id="@+id/Deaths"
+                android:layout_column="1" />
         </TableRow>
 
         <TableRow
@@ -90,19 +95,21 @@
             android:layout_height="fill_parent"
             android:layout_margin="10dp">
 
-            <TextView
+            <Button
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Assists:  "
-                android:id="@+id/textView4" />
+                android:text="Assists"
+                android:id="@+id/assistButton"
+                android:layout_column="0" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="insert assists here"
-                android:id="@+id/Assists"/>
+                android:id="@+id/Assists"
+                android:layout_column="1" />
         </TableRow>
 
         <TableRow
@@ -117,4 +124,5 @@
                 android:layout_column="1"/>
         </TableRow>
     </TableLayout>
+
 </LinearLayout>

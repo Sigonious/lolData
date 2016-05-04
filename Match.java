@@ -1,35 +1,38 @@
 package com.example.a.finalproject;
 
-public class Match {
+import java.io.Serializable;
+
+public class Match implements Serializable{
     private int kills, deaths, assists, matchID, summonerID;
     private double kda;
 
-    Match(int matchID, int summonerID)
-    {
-        this.matchID = matchID;
-        this.summonerID = summonerID;
-    }
+    Match(){}
 
     //This method gets the number of kills from the given matchID
-    public void setKills()
+    public void setKills(int kills)
     {
-        //pull kills from match through riot api
+        this.kills = kills;
     }
 
     //This method gets the number of deaths from the given matchID
-    public void setDeaths()
+    public void setDeaths(int deaths)
     {
-        //pull deaths from match through riot api
+        this.deaths = deaths;
     }
 
-    public void setAssists()
+    public void setAssists(int assists)
     {
-        //pull assists from match through riot api
+        this.assists = assists;
     }
 
     public void setKDA()
     {
-        kda = (kills+assists)/deaths;
+       kda = (kills+assists)/Math.max(1,deaths);
+    }
+
+    public void setMatchID(int matchID)
+    {
+        this.matchID = matchID;
     }
 
     public int getKills()
@@ -51,4 +54,6 @@ public class Match {
     {
         return kda;
     }
+
+    public int getSummonerID(){return summonerID;}
 }
