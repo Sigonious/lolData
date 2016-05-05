@@ -13,11 +13,9 @@ import java.text.Format;
 
 public class Stats extends AppCompatActivity{
     String sumName;
-    final String matchURL1 = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/";
-    final String matchURL2 = "?api_key=0fb229c6-5def-4bbb-9be6-067c9ec1b6dd";
-    double averageKills, averageDeaths, averageAssists, averageKDA;
+    double averageKills, averageDeaths, averageAssists, averageKDA, averageCreepScore;
     Match[] matchList = new Match[10];
-    double totalKills, totalDeaths, totalAssists;
+    double totalKills, totalDeaths, totalAssists, totalCreepScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,32 +27,42 @@ public class Stats extends AppCompatActivity{
         final Match[] matches = (Match[]) getIntent().getSerializableExtra("matchList");
         sumName = intent.getStringExtra("sumName");
 
+        //Creating objects from activity_stats.xml
         EditText name = (EditText) findViewById(R.id.summonerName);
         TextView SummonerName = (TextView) findViewById(R.id.summoner);
         TextView KDA = (TextView) findViewById(R.id.KDA);
         TextView Kills = (TextView) findViewById(R.id.Kills);
         TextView Deaths = (TextView) findViewById(R.id.Deaths);
         TextView Assists = (TextView) findViewById(R.id.Assists);
+        TextView Creeps = (TextView) findViewById(R.id.Creeps);
         Button BackButton = (Button) findViewById(R.id.BackButton);
         Button kdaButton = (Button) findViewById(R.id.kdaButton);
         Button killButton = (Button) findViewById(R.id.killButton);
         Button deathButton = (Button) findViewById(R.id.deathButton);
         Button assistButton = (Button) findViewById(R.id.assistButton);
+        Button creepButton = (Button) findViewById(R.id.creepButton);
 
         SummonerName.setText(sumName);
 
+        //Assigning value to all of the averages
         findAverageKills(matches);
         findAverageDeaths(matches);
         findAverageAssists(matches);
-        findAverageKDA(matches);
+        findAverageKDA();
+        findAverageCreepScore(matches);
 
+        //Formatting used to stop KDA from being excessively long
         Format format = new DecimalFormat("#.00");
+
+        //Setting the text of all text boxes
         String formattedKDA = format.format(averageKDA);
         KDA.setText(formattedKDA);
         Kills.setText(Double.toString(averageKills));
         Deaths.setText(Double.toString(averageDeaths));
         Assists.setText(Double.toString(averageAssists));
+        Creeps.setText(Double.toString(averageCreepScore));
 
+        //This button returns to the start screen
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,36 +71,58 @@ public class Stats extends AppCompatActivity{
             }
         });
 
+        //
+        // The following buttons each link to their respective classes that
+        // create a graph based on the data type associated with the button name
+        //
+
         kdaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //// TODO: 5/4/2016 create a graph view that displays kda for each game
+                Intent kdaGraph = new Intent(getBaseContext(), kdaGraph.class);
+                kdaGraph.putExtra("matches",matches);
+                startActivity(kdaGraph);
             }
         });
 
         killButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //// TODO: 5/4/2016 create a graph view that displays kills for each game
+                Intent killsGraph = new Intent(getBaseContext(), killsGraph.class);
+                killsGraph.putExtra("matches",matches);
+                startActivity(killsGraph);
             }
         });
 
         deathButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //// TODO: 5/4/2016 create a graph view that displays deaths for each game
+                Intent deathsGraph = new Intent(getBaseContext(), deathsGraph.class);
+                deathsGraph.putExtra("matches",matches);
+                startActivity(deathsGraph);
             }
         });
 
         assistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //// TODO: 5/4/2016 create a graph view that displays assists for each game
+                Intent assistsGraph = new Intent(getBaseContext(), assistsGraph.class);
+                assistsGraph.putExtra("matches",matches);
+                startActivity(assistsGraph);
+            }
+        });
+
+        creepButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent creepGraph = new Intent(getBaseContext(), creepGraph.class);
+                creepGraph.putExtra("matches", matches);
+                startActivity(creepGraph);
             }
         });
     }
 
-    public void findAverageKDA(Match[] matches)
+    public void findAverageKDA()
     {
         averageKDA = (totalKills+totalAssists)/totalDeaths;
     }
@@ -104,7 +134,7 @@ public class Stats extends AppCompatActivity{
         {
             totalKills += matches[i].getKills();
         }
-        averageKills = (double) totalKills/matches.length;
+        averageKills = totalKills/matches.length;
     }
 
     public void findAverageDeaths(Match[] matches)
@@ -114,7 +144,7 @@ public class Stats extends AppCompatActivity{
         {
             totalDeaths += matches[i].getDeaths();
         }
-        averageDeaths = (double) totalDeaths/matches.length;
+        averageDeaths = totalDeaths/matches.length;
     }
 
     public void findAverageAssists(Match[] matches)
@@ -124,6 +154,16 @@ public class Stats extends AppCompatActivity{
         {
             totalAssists += matches[i].getAssists();
         }
-        averageAssists = (double) totalAssists / matches.length;
+        averageAssists = totalAssists / matches.length;
+    }
+
+    public void findAverageCreepScore(Match[] matches)
+    {
+        totalCreepScore = 0;
+        for(int i = 0; i<matches.length; i++)
+        {
+            totalCreepScore += matches[i].getCreepScore();
+        }
+        averageCreepScore = totalCreepScore / matches.length;
     }
 }
